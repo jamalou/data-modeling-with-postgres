@@ -23,7 +23,7 @@ As a relational database, it permits for a wide range of queries and analysis: a
 We first need to run the "create_tables.py" script. It creates the database and create the tables (the queries for tables dropping and creation are implemented in the "sql_queries.py"). 
 Then we just need to run the "etl.py" script that extracts the data from the json files (logs and song data) and the inserts it properly into the tables.
 
-Inside a terminal run this commands:
+Inside a terminal run these commands:
 
 > python create_tables.py
 
@@ -37,10 +37,10 @@ Inside a terminal run this commands:
 * etl.ipynb: a notebook to extract and load data from one json file (one song file and one log file) it helps inderstand and make sure the etl process works correctly before running it on the whole data.
 * test.ipynb: a notebook to show some rows from each table in order to see the result after the etl process. It contains also sanity checks to make sure of some properties of the tables (data types, primary keys, ...)
 
-# Schema:
+## Schema:
 
 The schema of our database is a star schema. It consist of a fact table "songplays" that references four dimension tables: "artists", "users", "songs", "time". It allows to simplifie querries and makes aggregations fast.
 
-# ETL:
+## ETL:
 
 The process is rather simple, we extract the data from the json files and put them into pandas dataframe where we can keep the columns that we want and drop the rest. We also perform timestamps transformation to datetime. The only non straight forward transformation is the one for the songplays table, where we needed to querie the dataset about song_id and artist_id (instead of keeping names) ids are better foreign keys.
