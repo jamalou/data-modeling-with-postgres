@@ -8,14 +8,14 @@ time_table_drop = "DROP table IF EXISTS time;"
 
 # CREATE TABLES
 
-songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (songplay_id int primary key, \
-                                                                start_time timestamp not null, \
-                                                                user_id int not null, \
-                                                                level varchar, \
-                                                                song_id varchar, \
-                                                                artist_id varchar, \
-                                                                session_id int, \
-                                                                location varchar, \
+songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (songplay_id int primary key,
+                                                                start_time timestamp not null,
+                                                                user_id int not null,
+                                                                level varchar,
+                                                                song_id varchar,
+                                                                artist_id varchar,
+                                                                session_id int,
+                                                                location varchar,
                                                                 user_agent varchar);
 """)
 
@@ -54,13 +54,13 @@ time_table_create = ("""CREATE TABLE IF NOT EXISTS time (start_time timestamp,
 songplay_table_insert = ("""INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                             ON CONFLICT (songplay_id) 
-                            DO NOTHING;
+                            DO UPDATE SET level = EXCLUDED.level;
 """)
 
 user_table_insert = ("""INSERT INTO users (user_id, first_name, last_name, gender, level)
                             VALUES (%s, %s, %s, %s, %s)
                             ON CONFLICT (user_id) 
-                            DO NOTHING;
+                            DO UPDATE SET level = EXCLUDED.level;
 """)
 
 song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s)
